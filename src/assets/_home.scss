@@ -1,0 +1,22 @@
+body {
+    font-family: $font-stack;
+    background-color: $secondary-color;
+    max-width: 470px;
+    padding: 30px;
+  }
+
+  .main-heading--medium {
+     font-size: 1rem;
+  }
+ 
+  .flex-wrapper-justify {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .sub-info--opacity {
+    opacity: 0.5;
+    margin-right: 12px;
+    font-weight: medium;
+  }

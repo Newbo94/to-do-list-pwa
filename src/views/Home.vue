@@ -1,18 +1,16 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+      <div class="flex-wrapper-justify">
+        <h1 class="main-heading--big">My to do list</h1>
+        <span class="flex-wrapper-justify"> <p class="sub-info--opacity">Items</p> <h2 class="main-heading--medium">3</h2> </span>
+      </div>
+     <div class="to-do-card"> 
+        <input class="to-do-card--input" placeholder="Add new items.."/>
+        <div class="to-do-card--item"> 
+            <h2 class="main-heading-small to-do-card-heading"> Mandag</h2>
+            <img src="" class="to-do-card--img"/>
+        </div>
+     </div>
+     <button class="main-button--mainc" />
   </div>
 </template>
-
-<script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
-export default {
-  name: 'home',
-  components: {
-    HelloWorld
-  }
-}
-</script>
