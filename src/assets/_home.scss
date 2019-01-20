@@ -1,6 +1,6 @@
 body {
-    font-family: $font-stack;
     background-color: $secondary-color;
+    font-family: $font-stack;
     max-width: 470px;
     padding: 30px;
   }
@@ -10,13 +10,53 @@ body {
   }
  
   .flex-wrapper-justify {
+    align-items: center;
     display: flex;
     justify-content: space-between;
-    align-items: center;
   }
 
   .sub-info--opacity {
-    opacity: 0.5;
-    margin-right: 12px;
     font-weight: medium;
+    margin-right: 12px;
+    opacity: 0.5;
+  }
+
+  .to-do-card { 
+    background-color: $background-color;
+    box-shadow: 5px 15px 45px rgba(0,0,0,0.1);
+    padding: 20px;
+
+    &--item {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &--input {
+      border: none;   
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+      font-family: $font-stack;
+      height: 50px;
+      padding: 0;
+      width: 100%;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+
+  .main-button--mainc {
+    background-color: #000;
+    bottom: -75px;
+    border-radius: 200px;
+    color: #fff;
+    height: 175px;
+    left:   -75px;
+    padding-bottom: 55px;
+    padding-left: 50px;
+    position: fixed;
+    width: 175px;
+    &:focus {
+      outline: none;
+    }
   }
