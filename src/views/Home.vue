@@ -1,24 +1,119 @@
 <template>
   <div class="home">
-      <div class="flex-wrapper-justify">
-        <h1 class="main-heading--big">My to do list</h1>
-        <span class="flex-wrapper-justify"> <p class="sub-info--opacity">Items</p> <h2 class="main-heading--medium">3</h2> </span>
-      </div>
-     <div class="to-do-card"> 
-        <input class="to-do- card--input" placeholder="Add new items.."/>
-        <div class="to-do-card--item"> 
-            <h2 class="main-heading-small to-do-card-heading">Mandag</h2>
-           <!-- <script type="text/x-template" id="circle"> 
-           <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs>
-               <style>.cls-1,.cls-2{fill:none;}.cls-1{stroke:#1d1d1b;stroke-miterlimit:10;stroke-width:2px;}</style>
-               </defs><title>button-circle2</title>
-               <g id="Ellipse_2" data-name="Ellipse 2">
-                   <circle class="cls-1" cx="12" cy="12" r="11"/>
-                   <circle class="cls-2" cx="12" cy="12" r="10"/></g>
-                   </svg>
-                   </script>     -->
+    <div class="flex-wrapper-justify">
+      <h1 class="main-heading--big">My to do list</h1>
+      <span class="flex-wrapper-justify">
+        <p class="sub-info--opacity">Items</p>
+        <h2 class="main-heading--medium">{{remaning}}</h2>
+      </span>
+    </div>
+    <div class="to-do-card">
+      <input
+        v-model="newToDo"
+        @keyup.enter="addTodo"
+        type="text"
+        class="to-do-card--input"
+        placeholder="Add new items.."
+      >
+
+      <div class="todo-item" v-for="(todo, index) in todos" :key="todo.id">
+       <div>
+       <input type="checkbox" v-model="todo.completed">
+        <div
+          :class="{completed : todo.completed}"
+          v-if="!todo.editing"
+          @dblclick="editToDo(todo)"
+          class="todo-item-label"
+        >{{todo.title}}
         </div>
-     </div>
-     <button class="main-button--mainc">Edit</button>
+        <input
+          v-else
+          v-focus
+          class="todo-item-edit"
+          type="text"
+          v-model="todo.title"
+          @blur="doneEdit(todo)"
+          @keyup.enter="doneEdit(todo)"
+          @keyup.esc="cancelEdit(todo)"
+        >
+</div>
+        <div class="remove-item" @click="removeToDo(index)">&times;</div>
+      </div>
+    </div>
+    <button class="main-button--mainc">Edit</button>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      newToDo: "",
+      idForTodo: 3,
+      beforeEditCache: "",
+      todos: [
+        {
+          id: 1,
+          title: "Finish vue screencast",
+          completed: false,
+          editing: false
+        },
+        {
+          id: 2,
+          title: "Finish vue 2",
+          completed: false,
+          editing: false
+        }
+      ]
+    };
+  },
+
+  directives: {
+    focus: {
+      inserted: function(el) {
+        el.focus();
+      }
+    }
+  },
+
+  computed: {
+    remaning() {
+      return this.todos.filter(todo => !todo.completed).length;
+    }
+  },
+
+  methods: {
+    addTodo() {
+      if (this.newToDo.trim().length == 0) {
+        return;
+      }
+      this.todos.push({
+        id: this.idForTodo,
+        title: this.newToDo,
+        completed: false
+      });
+
+      (this.newToDo = ""), this.idForTodo++;
+    },
+
+    removeToDo(index) {
+      this.todos.splice(index, 1);
+    },
+
+    editToDo(todo) {
+      this.beforeEditCache = todo.title;
+      todo.editing = true;
+    },
+    doneEdit(todo) {
+      todo.editing = false;
+      if (todo.title.trim() === '') {
+        todo.title = this.beforeEditCache;
+      }
+    },
+    cancelEdit(todo) {
+      todo.editing = false;
+      todo.title = this.beforeEditCache;
+    }
+  }
+};
+</script>
